@@ -23,6 +23,9 @@ const httpServer = http.createServer((req, res) => {
   res.end();
 }).listen(httpPort);
 
+/*
+const httpServer = http.createServer(app).listen(httpPort);
+*/
 httpServer.on("error", (error) => {
   onError(error, httpPort);
 });

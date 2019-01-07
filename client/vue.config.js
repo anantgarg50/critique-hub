@@ -1,11 +1,11 @@
 module.exports = {
   pwa: {
-    name: 'Critique-Hub'
+    name: "Critique-Hub"
   },
 
   baseUrl: undefined,
-  outputDir: '../server/public',
-  assetsDir: 'assets',
+  outputDir: "../server/public",
+  assetsDir: "assets",
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
   parallel: undefined,
