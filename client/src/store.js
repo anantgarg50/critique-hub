@@ -7,11 +7,12 @@ export default new Vuex.Store({
   state: {
     drawer: false,
     miniVariantDrawer: false,
-    user: null,
-    token: null
+    user: JSON.parse(localStorage.getItem("user")),
+    token: localStorage.getItem("token")
   },
 
   getters: {
+    user: state => state.user,
     userId: state => state.user && state.user._id,
     userRole: state => state.user && state.user.role,
     isLoggedIn: state => !!state.token
@@ -27,13 +28,13 @@ export default new Vuex.Store({
     },
 
     setLoginData (state, data) {
-      state.loggedIn = true;
       state.token = data.token;
       state.user = data.user;
     },
 
     clearLoginData (state, data) {
-      state.loggedIn = false;
+      state.drawer = false;
+      state.miniVariantDrawer = false;
       state.token = null;
       state.user = null;
     }
@@ -43,6 +44,7 @@ export default new Vuex.Store({
     login ({ commit }, data) {
       return new Promise((resolve, reject) => {
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
         Vue.prototype.$http.defaults.headers.common["Authorization"] = data.token;
         commit("setLoginData", data);
         resolve();
@@ -53,6 +55,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit("clearLoginData");
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         delete Vue.prototype.$http.defaults.headers.common["Authorization"];
         resolve();
       })

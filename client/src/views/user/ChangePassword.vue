@@ -77,7 +77,8 @@ export default {
       if (this.$refs.changePasswordForm.validate()) {
         this.loading = true;
         setTimeout(() => {
-          this.$router.push("/admin/1234");
+          console.log("This thing isn't working yet!");
+          this.$router.push(`/user/${this.$store.getters.userId}/profile`);
           this.loading = false;
         }, 1000);
       }

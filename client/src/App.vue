@@ -24,6 +24,8 @@ export default {
         throw err;
       });
     });
+
+    console.log("Logged in: " + this.$store.getters.isLoggedIn);
   }
 };
 </script>

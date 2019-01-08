@@ -10,15 +10,15 @@
         <v-icon>more_vert</v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile @click.stop>
+        <v-list-tile @click="toMyAccount">
           <v-list-tile-action>
             <v-icon>account_box</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>My Account</v-list-tile-title>
+            <v-list-tile-title>My Profile</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click.stop>
+        <v-list-tile @click="logout">
           <v-list-tile-action>
             <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
@@ -33,12 +33,19 @@
 
 <script>
 export default {
-  props: {},
-
   methods: {
     toggleDrawer () {
-      this.$store.commit("toggleDrawer")
+      this.$store.commit("toggleDrawer");
+    },
+
+    toMyAccount () {
+      this.$router.push(`/user/${this.$store.getters.userId}/profile`);
+    },
+
+    logout () {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
     }
   }
-}
+};
 </script>

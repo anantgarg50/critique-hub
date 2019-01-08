@@ -19,25 +19,27 @@
 
       <v-list-tile avatar tag="div">
         <v-list-tile-avatar>
-          <img src="https://randomuser.me/api/portraits/men/85.jpg">
+          <img :src="getProfileImage">
         </v-list-tile-avatar>
 
         <v-list-tile-content>
-          <v-list-tile-title>John Leider</v-list-tile-title>
+          <v-list-tile-title>{{ userFullName }}</v-list-tile-title>
+          <span class="caption">({{ userRole }})</span>
         </v-list-tile-content>
-
-        <v-list-tile-action>
-          <v-btn flat icon @click.stop="toggleMiniVariantDrawer">
-            <v-icon>chevron_left</v-icon>
-          </v-btn>
-        </v-list-tile-action>
+        <v-btn small flat icon class="mr-0" @click.stop="toggleMiniVariantDrawer">
+          <v-icon>chevron_left</v-icon>
+        </v-btn>
       </v-list-tile>
     </v-list>
 
     <v-list class="pt-0">
       <v-divider light></v-divider>
 
-      <v-list-tile v-for="item in items" :key="item.title" @click.stop>
+      <v-list-tile
+        v-for="item in navItems"
+        :key="item.title"
+        @click.stop="navigateTo(item.location)"
+      >
         <v-list-tile-action>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-tile-action>
@@ -46,21 +48,67 @@
           <v-list-tile-title>{{ item.title }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+      <v-list-tile @click.stop="logout">
+        <v-list-tile-action>
+          <v-icon>exit_to_app</v-icon>
+        </v-list-tile-action>
+
+        <v-list-tile-content>
+          <v-list-tile-title>Logout</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
 export default {
-  props: {},
+  props: {
+    navItems: {
+      type: Array,
+      required: true
+    }
+  },
 
   methods: {
     toggleMiniVariantDrawer () {
       this.$store.commit("toggleMiniVariantDrawer");
-    }
+    },
+
+    logout () {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
+    },
+
+    navigateTo (route) {
+      this.$store.commit("toggleDrawer");
+      this.$router.push(route);
+    },
+
+    getProfileImage () {}
   },
 
   computed: {
+    userFullName () {
+      let user = this.$store.getters.user;
+      let name = user.firstName + " " + (user.lastName ? user.lastName : "");
+      return name.trim();
+    },
+
+    userRole () {
+      let userRole = this.$store.getters.userRole;
+
+      if (userRole === "admin") {
+        return "Admin";
+      } else if (userRole === "user") {
+        return "User";
+      } else if (userRole === "communityBuilder") {
+        return "Community Builder";
+      } else {
+        return "Other";
+      }
+    },
+
     drawer: {
       get () {
         return this.$store.state.drawer;
