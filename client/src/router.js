@@ -6,12 +6,16 @@ import Login from "./views/Login.vue"
 import ErrorPage from "./views/ErrorPage.vue"
 import ForgotPassword from "./views/ForgotPassword.vue"
 import RequestAccount from "./views/RequestAccount"
+import ComponentContainer from "./components/ComponentContainer.vue"
 
 import UserDashboard from "./views/user/Dashboard.vue"
 import ChangePassword from "./views/user/ChangePassword.vue"
 import UserProfile from "./views/user/UserProfile.vue"
+import MyCommunities from "./views/user/MyCommunities.vue"
 
-import AdminTest from "./views/admin/Test.vue"
+import AddUser from "./views/admin/AddUser.vue"
+import UserList from "./views/admin/UserList.vue"
+import CommunityList from "./views/admin/CommunityList.vue"
 
 import CommunityHomepage from "./views/community/Homepage.vue"
 
@@ -61,12 +65,12 @@ const componentProps = {
       },
       {
         title: "My Communities",
-        icon: "account_box",
+        icon: "group",
         location: `/user/${getters.userId}/myCommunities`
       },
       {
         title: "Change Password",
-        icon: "account_box",
+        icon: "lock",
         location: `/user/${getters.userId}/changePassword`
       }
     ],
@@ -79,27 +83,27 @@ const componentProps = {
       },
       {
         title: "Add User",
-        icon: "account_box",
+        icon: "add_circle",
         location: `/user/${getters.userId}/admin/addUser`
       },
       {
         title: "User List",
-        icon: "account_box",
+        icon: "list",
         location: `/user/${getters.userId}/admin/userList`
       },
       {
         title: "Community List",
-        icon: "account_box",
+        icon: "view_list",
         location: `/user/${getters.userId}/admin/communityList`
       },
       {
         title: "My Communities",
-        icon: "account_box",
+        icon: "group",
         location: `/user/${getters.userId}/myCommunities`
       },
       {
         title: "Change Password",
-        icon: "account_box",
+        icon: "lock",
         location: `/user/${getters.userId}/changePassword`
       }
     ]
@@ -148,14 +152,30 @@ export default new Router({
           component: ChangePassword
         },
         {
+          path: "myCommunities",
+          name: "myCommunities",
+          component: MyCommunities
+        },
+        {
           path: "admin",
           name: "admin",
+          component: ComponentContainer,
           beforeEnter: adminGuard,
           children: [
             {
-              path: "test",
-              name: "test",
-              component: AdminTest
+              path: "addUser",
+              name: "addUser",
+              component: AddUser
+            },
+            {
+              path: "userList",
+              name: "userList",
+              component: UserList
+            },
+            {
+              path: "communityList",
+              name: "communityList",
+              component: CommunityList
             }
           ]
         }
@@ -166,6 +186,11 @@ export default new Router({
       name: "communityHomepage",
       component: CommunityHomepage,
       beforeEnter: communityGuard
+    },
+    {
+      path: "/index.html",
+      name: "error",
+      redirect: "/"
     },
     {
       path: "*",

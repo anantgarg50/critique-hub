@@ -10,7 +10,7 @@
               </div>
               <v-form ref="resetPasswordForm" lazy-validation>
                 <v-text-field
-                  append-icon="person"
+                  append-icon="email"
                   label="E-mail"
                   type="text"
                   v-model="email"

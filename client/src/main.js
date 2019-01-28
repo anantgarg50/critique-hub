@@ -13,7 +13,7 @@ import Navbar from "./components/Navbar.vue"
 import Toolbar from "./components/Toolbar.vue"
 
 const api = Axios.create({
-  baseURL: process.env.VUE_APP_ROOT_API
+  // baseURL: process.env.VUE_APP_ROOT_API
 })
 
 Vue.prototype.$http = api;

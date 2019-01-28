@@ -19,7 +19,7 @@
 
       <v-list-tile avatar tag="div">
         <v-list-tile-avatar>
-          <img :src="getProfileImage">
+          <img src="../assets/user.png">
         </v-list-tile-avatar>
 
         <v-list-tile-content>

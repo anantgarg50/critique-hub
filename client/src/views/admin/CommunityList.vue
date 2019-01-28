@@ -1,5 +1,5 @@
 <template>
-  <v-container>This is test admin router</v-container>
+  <h1>Page Under Construction</h1>
 </template>
 
 <script>

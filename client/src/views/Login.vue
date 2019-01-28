@@ -17,7 +17,7 @@
                   </div>
                   <v-form ref="loginForm" lazy-validation>
                     <v-text-field
-                      append-icon="person"
+                      append-icon="email"
                       label="E-mail"
                       type="text"
                       v-model="creds.email"
@@ -102,10 +102,6 @@ export default {
           });
       }
     }
-  },
-
-  created () {
-    console.log(this.$store.getters.isLoggedIn);
   }
 };
 </script>
